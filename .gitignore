@@ -1,0 +1,6 @@
+# Created by .ignore support plugin (hsz.mobi)
+.gitignore
+.idea/workspace.xml
+node_modules/cps/lib/tail.js~
+public/images/
+public/javascripts/

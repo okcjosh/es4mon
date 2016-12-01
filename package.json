@@ -16,5 +16,8 @@
     "node-schedule": "~1.2.0",
     "node-mysql": "~0.4.2",
     "twilio": "~2.11.1"
+  },
+  "devDependencies": {
+    "mysql": "latest"
   }
 }

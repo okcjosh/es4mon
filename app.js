@@ -29,20 +29,20 @@ app.use('/users', users);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
-  var err = new Error('Not Found');
-  err.status = 404;
-  next(err);
+    var err = new Error('Not Found');
+    err.status = 404;
+    next(err);
 });
 
 // error handler
 app.use(function(err, req, res, next) {
-  // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
+    // set locals, only providing error in development
+    res.locals.message = err.message;
+    res.locals.error = req.app.get('env') === 'development' ? err : {};
 
-  // render the error page
-  res.status(err.status || 500);
-  res.render('error');
+    // render the error page
+    res.status(err.status || 500);
+    res.render('error');
 });
 var accountSid = 'AC9ce0d28ee69cd6ff89fdc1b8d0139099';
 var authToken = '4890e088921ee4039f79b22d44d0ebb1';
@@ -58,8 +58,10 @@ connection.connect();
 console.log('connected: ' + connection);
 //console.log(schedule);
 var rule = new schedule.RecurrenceRule();
+rule.second = [0, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55];
+// var rule = new schedule.RecurrenceRule();
 console.log('rule: ' + rule);
-rule.second = 9;
+// rule.second = 1;
 console.log('About to schedule');
 var job = schedule.scheduleJob(rule, function () {
     console.log('Job fired');
@@ -80,6 +82,12 @@ var job = schedule.scheduleJob(rule, function () {
                 }, function (err, sms) {
                     console.log(sms.sid);
                 });
+                connection.query("update job_invitation set job_invitation_status_id = 2 where job_invitation_id = " + rows[i].job_invitation_id, function(err, rows, fields) {
+                    if(err)
+                        console.log(err);
+                    else
+                        console.log('Updated invitation record');
+                })
             }
         }
     });
