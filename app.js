@@ -84,7 +84,7 @@ fs.readFile('emailTemplateJobNotification.html', function(err, data) {
 //console.log(schedule);
 var rule = new schedule.RecurrenceRule();
 //console.log('rule: ' + rule);
-rule.second = 9;
+rule.second = [0, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55];
 
 var job = schedule.scheduleJob(rule, function () {
     console.log('Job fired');
@@ -134,7 +134,7 @@ function checkReminders() {
 
 function getMessage(job_invitation_row) {
     var msg = 'You have been selected to work a security detail for DPD. Please visit '
-        + 'http://' + realServer + ':3000/invitation?event_id=' + job_invitation_row.party_id + ' to accept this job.';
+        + 'http://' + realServer + '/invitation/' + job_invitation_row.party_id + ' to accept this job.';
     return msg;
 }
 
@@ -153,7 +153,7 @@ function sendText (job_invitation_row, msg) {
 }
 
 function sendEmail(job_invitation_row, msg) {
-    emailTemplate = emailTemplate.replace("?event_id=", "?event_id=" + job_invitation_row.party_id);
+    emailTemplate = emailTemplate.replace("/invitation/", "/invitation/" + job_invitation_row.party_id);
     var mailoptions = {
         from:'es4mailer@gmail.com',
         to: job_invitation_row.email,
