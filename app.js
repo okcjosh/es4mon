@@ -153,6 +153,7 @@ function sendText (job_invitation_row, msg) {
 }
 
 function sendEmail(job_invitation_row, msg) {
+    console.log("Sending email for event: " + job_invitation_row.party_id);
     emailTemplate = emailTemplate.replace("/invitation/", "/invitation/" + job_invitation_row.party_id);
     var mailoptions = {
         from:'es4mailer@gmail.com',
