@@ -154,13 +154,13 @@ function sendText (job_invitation_row, msg) {
 
 function sendEmail(job_invitation_row, msg) {
     console.log("Sending email for event: " + job_invitation_row.party_id);
-    emailTemplate = emailTemplate.replace("/invitation/", "/invitation/" + job_invitation_row.party_id);
+    var tempEmail = emailTemplate.slice(0);
+    tempEmail = tempEmail.replace("/invitation/", "/invitation/" + job_invitation_row.party_id);
     var mailoptions = {
         from:'es4mailer@gmail.com',
         to: job_invitation_row.email,
         subject: 'ES4 Job Notification',
-        //text: msg
-        html: emailTemplate
+        html: tempEmail
     };
     transport.sendMail(mailoptions, function (err, info) {
         if(err) {
